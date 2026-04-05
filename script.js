@@ -71,22 +71,31 @@ function renderList() {
 // UPDATE = Find ID -> Changing Text -> Save and Re-render
 const editTodo = (id) => {
   const todo = todos.find((t) => t.id === id);
-
-  // Prompt new text
-  const updatedText = prompt("Edit:", todo.text);
-
-  if (updatedText) {
-    todo.text = updatedText;
-  }
+  if (!todo) return;
 
   Swal.fire({
-    text: "Data sudah diperbarui!",
-    icon: "success",
-    timer: 1000,
-    showConfirmButton: false,
+    title: "Edit Todo",
+    input: "text",
+    inputValue: todo.text,
+    showCancelButton: true,
+    confirmButtonText: "Simpan",
+  }).then((result) => {
+    if (!result.isConfirmed) return;
+    const value = result.value?.trim();
+    if (!value) return;
+
+    todo.text = value;
+
+    saveTodo();
+    renderList();
+
+    Swal.fire({
+      text: "Data sudah diperbarui!",
+      icon: "success",
+      timer: 1000,
+      showConfirmButton: false,
+    });
   });
-  saveTodo();
-  renderList();
 };
 
 // CREATE - Menambahkan Data
@@ -95,7 +104,7 @@ btnAdd.addEventListener("click", function (e) {
 
   const value = input.value.trim();
 
-  // Validasi kosoong
+  // Validasi kosong
   if (!value) {
     Swal.fire({
       title: "Oops...",
