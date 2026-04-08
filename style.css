@@ -58,7 +58,7 @@ main {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  width: fit-content;
+  width: 512px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -123,6 +123,19 @@ li {
 .todo-text {
   flex: 1;
   padding: 10px;
+  transition: all 0.2s ease;
+}
+
+.checkbox {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.completed-task .todo-text {
+  text-decoration: line-through;
+  color: #999;
+  opacity: 0.7;
 }
 
 /* Handle button */
