@@ -50,22 +50,47 @@ const deleteData = (id) => {
 // READ - Menampilkan Data
 function renderList() {
   const listTodo = document.getElementById("list");
+
+  // Clear the current list
   listTodo.innerHTML = "";
 
   // Here we use forEach to render each TODO we just added
   todos.forEach((todo) => {
-    listTodo.innerHTML += `
-        <li class="todo-item">
-            <span class="todo-text">${todo.text}</span>
-
-            <div className="todo-actions">
-              <button class="btn-edit" onclick="editTodo(${todo.id})">Edit</button>
-              <button class="btn-delete" onclick="deleteData(${todo.id})">Hapus</button>
+    listTodo.innerHTML += /* html */ `
+        <li class="todo-item ${todo.isCompleted ? "completed-task" : ""}" >
+            <div>
+              <input 
+                type="checkbox" 
+                onChange="toggleTaskStatus(${todo.id})" 
+                ${todo.isCompleted ? "checked" : ""}
+                class="checkbox"
+              /> 
+              <span class="todo-text">${todo.text}</span>    
             </div>
+        <div class="todo-actions">
+            <button class="btn-edit" onclick="editTodo(${todo.id})">Edit</button>
+            <button class="btn-delete" onclick="deleteData(${todo.id})">Hapus</button>
+        </div>
         </li>
     `;
   });
 }
+
+const toggleTaskStatus = (id) => {
+  // Find the id
+  const task = todos.find((t) => t.id === id);
+
+  if (task) {
+    task.isCompleted = !task.isCompleted;
+  }
+
+  console.log(`Toggle aktif ${task.text}`);
+  // Save the updated array
+  saveTodo();
+
+  // Re-render the UI so the checkmark and text styling update
+  renderList();
+};
 
 // EDIT - Mengubah data
 // UPDATE = Find ID -> Changing Text -> Save and Re-render
@@ -118,6 +143,8 @@ btnAdd.addEventListener("click", function (e) {
   const newTodo = {
     id: Date.now() + Math.random(),
     text: input.value,
+    // Task for checkbox
+    isCompleted: false,
   };
 
   // todos.push(newTodo);
