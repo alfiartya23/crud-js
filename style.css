@@ -51,7 +51,6 @@ body {
   background: #f5f6fa;
   display: flex;
   justify-content: center;
-  margin-top: 50px;
 }
 
 main {
@@ -59,6 +58,7 @@ main {
   padding: 20px;
   border-radius: 10px;
   width: 512px;
+  margin-top: 24px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -75,11 +75,11 @@ section p {
 form {
   display: flex;
   gap: 10px;
-  justify-content: center;
+  justify-content: space-between;
   margin: 15px 0;
 }
 
-input {
+input[type="text"] {
   flex: 1;
   padding: 8px;
   border-radius: 5px;
@@ -88,15 +88,12 @@ input {
 
 button {
   padding: 8px 12px;
+  border-color: #007bff;
   border: none;
-  background: #2373cf;
+  background: #007bff;
   color: white;
   border-radius: 5px;
   cursor: pointer;
-}
-
-button:hover {
-  background: #1b60ae;
 }
 
 ul {
@@ -128,8 +125,7 @@ li {
 
 .checkbox {
   cursor: pointer;
-  width: 16px;
-  height: 16px;
+  width: 18px;
 }
 
 .completed-task .todo-text {
@@ -159,8 +155,52 @@ li {
   color: white;
 }
 
+.todo-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 10px;
+}
+
+#check-all {
+  font-size: 16px;
+  border-radius: 6px;
+  background: #2d7ef7;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 18px;
+}
+
+/* FILTER */
+.filter-tabs {
+  gap: 16px;
+  display: flex;
+}
+
+.filter-btn {
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: none;
+  color: #cccccc;
+}
+
+/* This is the class we will add to the active tab */
+.filter-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
 /* RESPONSIVE MEDIA */
 @media (max-width: 500px) {
+  main {
+    margin: 0;
+  }
+
   /* form jadi vertikal */
   .form {
     flex-direction: column;
